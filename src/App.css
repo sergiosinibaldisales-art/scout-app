@@ -1,0 +1,94 @@
+.tela {
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f4f4f2;
+  color: #1e1e1e;
+  font-family: system-ui, sans-serif;
+}
+
+.topo {
+  background: #fff;
+  padding: 20px;
+  border-bottom: 2px solid #1e1e1e;
+}
+
+.scout {
+  margin: 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #5e5e5a;
+}
+
+.topo h1 {
+  margin: 4px 0 0;
+  font-size: 24px;
+}
+
+.lista {
+  flex: 1;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cartao {
+  background: #fff;
+  border: 2px solid #1e1e1e;
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.cartao p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #5e5e5a;
+}
+
+.etiqueta {
+  font-size: 11px;
+  border: 1.5px dashed #1e1e1e;
+  border-radius: 4px;
+  padding: 3px 6px;
+  white-space: nowrap;
+}
+
+.rodape {
+  background: #fff;
+  padding: 16px 20px 28px;
+  border-top: 2px solid #1e1e1e;
+}
+
+.botao {
+  width: 100%;
+  height: 52px;
+  border: 0;
+  border-radius: 6px;
+  background: #1e1e1e;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.remover {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #1e1e1e;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
