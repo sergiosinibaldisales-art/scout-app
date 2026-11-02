@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import FormNovoRelatorio from './FormNovoRelatorio.jsx';
 
-// Nome da "gaveta" onde os relatórios ficam guardados no navegador do usuário.
 const CHAVE = 'scout-app: relatorios';
 
 const relatoriosIniciais = [
@@ -22,31 +22,34 @@ function carregarRelatorios() {
   } catch (error) {
     console.error('Não consegui ler os relatórios salvos:', error);
   }
-
   return relatoriosIniciais;
+}
+
+function formatarData(dataISO) {
+  const [ano, mes, dia] = dataISO.split('-');
+  return `${dia}/${mes}/${ano.slice(2)}`;
 }
 
 function App() {
   const [relatorios, setRelatorios] = useState(carregarRelatorios);
+  const [tela, setTela] = useState('inicio');
 
   useEffect(() => {
     localStorage.setItem(CHAVE, JSON.stringify(relatorios));
   }, [relatorios]);
 
-  function adicionarRelatorio() {
-    const novo = {
-      id: Date.now(),
-      jogador: 'Novo Jogador',
-      jogo: 'Jogo a definir',
-      data: new Date().toLocaleDateString('pt-BR'),
-      status: 'Rascunho',
-    };
-
+  function salvarRelatorio(dados) {
+    const novo = { ...dados, id: Date.now(), data: formatarData(dados.data), status: 'Rascunho' };
     setRelatorios((atual) => [...atual, novo]);
+    setTela('inicio');
   }
 
   function removerRelatorio(id) {
     setRelatorios((atual) => atual.filter((r) => r.id !== id));
+  }
+
+  if (tela === 'novo') {
+    return <FormNovoRelatorio onSalvar={salvarRelatorio} onCancelar={() => setTela('inicio')} />;
   }
 
   return (
@@ -61,7 +64,10 @@ function App() {
         {relatorios.map((r) => (
           <div key={r.id} className="cartao">
             <div className="info">
-              <strong>{r.jogador}</strong>
+              <strong>
+                {r.jogador}
+                {r.numero && ` (${r.numero})`}
+              </strong>
               <p>{r.jogo} · {r.data}</p>
             </div>
             <span className="etiqueta">{r.status}</span>
@@ -73,7 +79,7 @@ function App() {
       </main>
 
       <footer className="rodape">
-        <button className="botao" onClick={adicionarRelatorio}>
+        <button className="botao" onClick={() => setTela('novo')}>
           + Novo relatório
         </button>
       </footer>
