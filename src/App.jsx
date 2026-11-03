@@ -3,6 +3,7 @@ import './App.css';
 import FormNovoRelatorio from './FormNovoRelatorio.jsx';
 import TelaAtributos from './TelaAtributos.jsx';
 import { ATRIBUTOS } from './atributos.js';
+import TelaAvaliacao from './TelaAvaliacao.jsx';
 
 
 const CHAVE = 'scout-app: relatorios';
@@ -58,6 +59,14 @@ function App() {
     setRelatorios((atual) =>
       atual.map((r) => (r.id === abertoId ? { ...r, notas, contagens } : r))
     );
+    setTela('avaliacao');
+  }
+    function salvarAvaliacao(avaliacao) {
+    setRelatorios((atual) =>
+      atual.map((r) =>
+        r.id === abertoId ? { ...r, avaliacao, status: avaliacao.recomendacao } : r
+      )
+    );
     setTela('inicio');
   }
 
@@ -68,6 +77,17 @@ function App() {
   if (tela === 'novo') {
     return <FormNovoRelatorio onSalvar={salvarRelatorio} onCancelar={() => setTela('inicio')} />;
   }
+    if (tela === 'avaliacao') {
+    const aberto = relatorios.find((r) => r.id === abertoId);
+    return (
+      <TelaAvaliacao
+        relatorio={aberto}
+        onSalvar={salvarAvaliacao}
+        onVoltar={() => setTela('atributos')}
+      />
+    );
+  }
+  
   if (tela === 'atributos') {
     const aberto = relatorios.find((r) => r.id === abertoId);
     return (
