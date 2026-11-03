@@ -19,5 +19,5 @@
     { chave: 'bolaParada', nome: 'Bola parada / cobranças'},
   ];
 
-  export const NOTAS = [ A, B, C, D, E, F];
+export const NOTAS = ['A', 'B', 'C', 'D', 'E', 'F'];
   
