@@ -1,4 +1,6 @@
-import { ATRIBUTOS, NOTAS } from './atributos.js';
+import { ATRIBUTOS, NOTAS, CATEGORIAS } from './atributos.js';
+import { mediaDaCategoria, numeroParaNota } from './calculos.js';
+import Radar from './Radar.jsx';
 
 function larguraDaNota(nota) {
   const posicao = NOTAS.indexOf(nota);
@@ -12,6 +14,11 @@ function TelaRelatorio({ relatorio, onVoltar, onEditar }) {
   const notas = relatorio.notas || {};
   const contagens = relatorio.contagens || {};
   const avaliacao = relatorio.avaliacao || {};
+    const medias = CATEGORIAS.map((c) => ({
+        nome: c.nome,
+        chaves: c.chaves,
+        valor: mediaDaCategoria(c, notas),
+    }));
 
   const detalhes = [relatorio.clube, relatorio.posicao, relatorio.pe].filter(Boolean).join(' · ');
 
@@ -40,24 +47,37 @@ function TelaRelatorio({ relatorio, onVoltar, onEditar }) {
             {relatorio.jogo} · {relatorio.data}
           </p>
 
-          <p className="folha-rotulo">Atributos</p>
-          <div className="barras">
-            {ATRIBUTOS.map((a) => (
-              <div key={a.chave} className="barra-linha">
-                <span>{a.nome}</span>
-                <div className="barra-fundo">
-                  <div className="barra" style={{ width: larguraDaNota(notas[a.chave]) }} />
-                </div>
-                <b>{notas[a.chave] || '–'}</b>
-                {contagens[a.chave] && (
-                  <small>
-                    {contagens[a.chave].certos}/
-                    {contagens[a.chave].certos + contagens[a.chave].errados} certas
-                  </small>
-                )}
+                    <Radar valores={medias} />
+
+          {medias.map((m) => (
+            <div key={m.nome} className="categoria">
+              <div className="categoria-topo">
+                <span>{m.nome}</span>
+                <span>
+                  {m.valor === null
+                    ? 'sem nota'
+                    : `Média ${numeroParaNota(m.valor)} · ${m.valor.toFixed(1)}/6`}
+                </span>
               </div>
-            ))}
-          </div>
+              <div className="barras">
+                {ATRIBUTOS.filter((a) => m.chaves.includes(a.chave)).map((a) => (
+                  <div key={a.chave} className="barra-linha">
+                    <span>{a.nome}</span>
+                    <div className="barra-fundo">
+                      <div className="barra" style={{ width: larguraDaNota(notas[a.chave]) }} />
+                    </div>
+                    <b>{notas[a.chave] || '–'}</b>
+                    {contagens[a.chave] && (
+                      <small>
+                        {contagens[a.chave].certos}/
+                        {contagens[a.chave].certos + contagens[a.chave].errados} certas
+                      </small>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
 
           <div className="folha-textos">
             <div>

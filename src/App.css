@@ -387,4 +387,56 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
+
+  .categoria-topo
+    .barra,
+  .barra-fundo,
+  .categoria-topo {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  } 
+}
+.radar {
+  width: 100%;
+  max-width: 320px;
+  align-self: center;
+}
+
+.radar-anel {
+  fill: none;
+  stroke: #cfcfcb;
+  stroke-width: 1;
+}
+
+.radar-eixo {
+  stroke: #cfcfcb;
+  stroke-width: 1;
+}
+
+.radar-forma {
+  fill: rgba(30, 30, 30, 0.15);
+  stroke: #1e1e1e;
+  stroke-width: 2;
+}
+
+.radar-rotulo {
+  font-size: 11px;
+  fill: #5e5e5a;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.categoria {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.categoria-topo {
+  display: flex;
+  justify-content: space-between;
+  background: #f4f4f2;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 600;
 }

@@ -21,5 +21,12 @@
 
 export const NOTAS = ['A', 'B', 'C', 'D', 'E', 'F'];
 export const RECOMENDACOES = ['Assinar', 'Monitorar', 'Ver de novo', 'Não recomendo'];
+export const CATEGORIAS = [
+  { nome: 'Físico', chaves: ['velocidade'] },
+  { nome: 'Técnico', chaves: ['passe', 'finalizacao', 'drible', 'cabeceio', 'recepcao'] },
+  { nome: 'Tático', chaves: ['movimentacao', 'percepcao', 'posicionamento', 'decisao'] },
+  { nome: 'Defensivo', chaves: ['defesa', 'umContraUm', 'defesaLados', 'defesaBloco'] },
+  { nome: 'Bola parada', chaves: ['bolaParada'] },
+];
 
   
