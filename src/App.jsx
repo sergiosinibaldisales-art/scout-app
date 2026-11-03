@@ -54,9 +54,9 @@ function App() {
     abrirAtributos(novo.id);;
   }
 
-  function salvarNotas(notas) {
+    function salvarNotas(notas, contagens) {
     setRelatorios((atual) =>
-      atual.map((r) => (r.id === abertoId ? { ...r, notas } : r))
+      atual.map((r) => (r.id === abertoId ? { ...r, notas, contagens } : r))
     );
     setTela('inicio');
   }
