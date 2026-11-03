@@ -4,7 +4,7 @@ import FormNovoRelatorio from './FormNovoRelatorio.jsx';
 import TelaAtributos from './TelaAtributos.jsx';
 import { ATRIBUTOS } from './atributos.js';
 import TelaAvaliacao from './TelaAvaliacao.jsx';
-
+import TelaRelatorio from './TelaRelatorio.jsx';
 
 const CHAVE = 'scout-app: relatorios';
 
@@ -48,6 +48,10 @@ function App() {
     setAbertoId(id);
     setTela('atributos');
   }
+    function abrirRelatorio(id) {
+    setAbertoId(id);
+    setTela('relatorio');
+  }
 
   function salvarRelatorio(dados) {
     const novo = { ...dados, id: Date.now(), data: formatarData(dados.data), status: 'Rascunho' };
@@ -67,13 +71,22 @@ function App() {
         r.id === abertoId ? { ...r, avaliacao, status: avaliacao.recomendacao } : r
       )
     );
-    setTela('inicio');
+    setTela('relatorio');
   }
 
   function removerRelatorio(id) {
     setRelatorios((atual) => atual.filter((r) => r.id !== id));
   }
-
+    if (tela === 'relatorio') {
+    const aberto = relatorios.find((r) => r.id === abertoId);
+    return (
+      <TelaRelatorio
+        relatorio={aberto}
+        onVoltar={() => setTela('inicio')}
+        onEditar={() => setTela('atributos')}
+      />
+    );
+  }
   if (tela === 'novo') {
     return <FormNovoRelatorio onSalvar={salvarRelatorio} onCancelar={() => setTela('inicio')} />;
   }
@@ -87,7 +100,7 @@ function App() {
       />
     );
   }
-  
+
   if (tela === 'atributos') {
     const aberto = relatorios.find((r) => r.id === abertoId);
     return (
@@ -110,7 +123,7 @@ function App() {
       <main className="lista">
         {relatorios.map((r) => (
           <div key={r.id} className="cartao">
-              <div className="info" onClick={() => abrirAtributos(r.id)}>
+              <div className="info" onClick={() => abrirRelatorio(r.id)}>
                     <strong>
                 {r.jogador}
                 {r.numero && ` (${r.numero})`}

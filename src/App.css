@@ -236,3 +236,155 @@
   background: #fff;
   resize: vertical;
 }
+
+/* ---------- Avaliação final (lição 7) ---------- */
+.formulario textarea {
+  min-height: 80px;
+  padding: 10px 12px;
+  border: 2px solid #1e1e1e;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.folha {
+  background: #fff;
+  border: 1.5px solid #1e1e1e;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.folha h2 {
+  margin: 2px 0;
+  font-size: 20px;
+}
+
+.folha-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.folha-rotulo {
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5e5e5a;
+}
+
+.folha-detalhe {
+  margin: 0;
+  font-size: 12px;
+  color: #5e5e5a;
+}
+
+.folha-jogo {
+  border-top: 1px solid #cfcfcb;
+  padding-top: 8px;
+}
+
+.nota-geral {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border: 2px solid #1e1e1e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.barras {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.barra-linha {
+  display: grid;
+  grid-template-columns: 120px 1fr 18px;
+  gap: 2px 8px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.barra-linha small {
+  grid-column: 2 / 4;
+  font-size: 10px;
+  color: #5e5e5a;
+}
+
+.barra-fundo {
+  height: 8px;
+  background: #e6e6e2;
+}
+
+.barra {
+  height: 100%;
+  background: #1e1e1e;
+}
+
+.folha-textos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.folha-textos p,
+.folha-textos-um p {
+  margin: 2px 0 0;
+  white-space: pre-wrap;
+}
+
+.folha-textos-um {
+  font-size: 12px;
+}
+
+.recomendacao {
+  border: 1.5px dashed #1e1e1e;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.acoes-tres {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media print {
+  .nao-imprimir {
+    display: none;
+  }
+
+  .tela,
+  .lista {
+    background: #fff;
+    padding: 0;
+  }
+
+  .folha {
+    border: 0;
+  }
+
+  .barra,
+  .barra-fundo {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
