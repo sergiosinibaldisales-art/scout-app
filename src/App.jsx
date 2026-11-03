@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import FormNovoRelatorio from './FormNovoRelatorio.jsx';
+import TelaAtributos from './TelaAtributos.jsx';
+import { ATRIBUTOS } from './atributos.js';
+
 
 const CHAVE = 'scout-app: relatorios';
 
@@ -33,14 +36,28 @@ function formatarData(dataISO) {
 function App() {
   const [relatorios, setRelatorios] = useState(carregarRelatorios);
   const [tela, setTela] = useState('inicio');
+    const [abertoId, setAbertoId] = useState(null);
+
 
   useEffect(() => {
     localStorage.setItem(CHAVE, JSON.stringify(relatorios));
   }, [relatorios]);
 
+  function abrirAtributos(id) {
+    setAbertoId(id);
+    setTela('atributos');
+  }
+
   function salvarRelatorio(dados) {
     const novo = { ...dados, id: Date.now(), data: formatarData(dados.data), status: 'Rascunho' };
     setRelatorios((atual) => [...atual, novo]);
+    abrirAtributos(novo.id);;
+  }
+
+  function salvarNotas(notas) {
+    setRelatorios((atual) =>
+      atual.map((r) => (r.id === abertoId ? { ...r, notas } : r))
+    );
     setTela('inicio');
   }
 
@@ -50,6 +67,16 @@ function App() {
 
   if (tela === 'novo') {
     return <FormNovoRelatorio onSalvar={salvarRelatorio} onCancelar={() => setTela('inicio')} />;
+  }
+  if (tela === 'atributos') {
+    const aberto = relatorios.find((r) => r.id === abertoId);
+    return (
+      <TelaAtributos
+        relatorio={aberto}
+        onSalvar={salvarNotas}
+        onVoltar={() => setTela('inicio')}
+      />
+    );
   }
 
   return (
@@ -63,13 +90,16 @@ function App() {
       <main className="lista">
         {relatorios.map((r) => (
           <div key={r.id} className="cartao">
-            <div className="info">
-              <strong>
+              <div className="info" onClick={() => abrirAtributos(r.id)}>
+                    <strong>
                 {r.jogador}
                 {r.numero && ` (${r.numero})`}
-              </strong>
-              <p>{r.jogo} · {r.data}</p>
-            </div>
+                </strong>
+                <p>{r.jogo} · {r.data}</p>
+                <p>
+                  {Object.values(r.notas || {}).filter(Boolean).length}/{ATRIBUTOS.length} notas
+                </p>
+              </div>
             <span className="etiqueta">{r.status}</span>
             <button className="remover" onClick={() => removerRelatorio(r.id)}>
               X

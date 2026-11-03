@@ -140,3 +140,43 @@
   color: #1e1e1e;
   border: 1.5px solid #1e1e1e;
 }
+
+.info {
+  cursor: pointer;
+}
+
+.atributo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 0;
+  border-bottom: 1px solid #cfcfcb;
+}
+
+.atributo-nome {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.notas {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.nota {
+  height: 40px;
+  border: 1.5px solid #1e1e1e;
+  border-radius: 6px;
+  background: #fff;
+  color: #1e1e1e;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nota.escolhida {
+  background: #1e1e1e;
+  color: #fff;
+}
+
