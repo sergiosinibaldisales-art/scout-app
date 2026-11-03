@@ -20,4 +20,6 @@
   ];
 
 export const NOTAS = ['A', 'B', 'C', 'D', 'E', 'F'];
+export const RECOMENDACOES = ['Assinar', 'Monitorar', 'Ver de novo', 'Não recomendo'];
+
   
